@@ -1,0 +1,27 @@
+{
+  "name": "risposta",
+  "version": "0.0.1",
+  "description": "functions from caolon/async implemented using promises",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bulkan/risposta.git"
+  },
+  "keywords": [
+    "promises",
+    "async",
+    "q"
+  ],
+  "author": "Bulkan Evcimen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bulkan/risposta/issues"
+  },
+  "homepage": "https://github.com/bulkan/risposta",
+  "dependencies": {
+    "q": "~1.0.0"
+  }
+}
