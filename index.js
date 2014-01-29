@@ -1,13 +1,8 @@
-var Q = require('q');
 
-/**
- * @returns promise
- */
-module.exports.each = function each(collection, iterator){
-  var iterator = Q.denodeify(iterator)
-    , promises = collection.map(function(i){
-    return iterator(i);
-  });
+module.exports.q = function(){
+  return require('./lib/q');
+}
 
-  return Q.all(promises);
+module.exports.bluebird = function(){
+  return require('./lib/q');
 }

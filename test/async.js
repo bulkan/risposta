@@ -1,4 +1,4 @@
-var async = require('../index')
+var async = require('../index').q()
   , should = require('chai').should();
 
 describe('async', function(){
