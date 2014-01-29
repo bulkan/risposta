@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/bulkan/risposta",
   "dependencies": {
-    "q": "~1.0.0"
+    "q": "~1.0.0",
+    "chai": "~1.8.1",
+    "mocha": "~1.17.1"
   }
 }
