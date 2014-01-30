@@ -4,5 +4,5 @@ module.exports.q = function(){
 }
 
 module.exports.bluebird = function(){
-  return require('./lib/q');
+  return require('./lib/bluebird');
 }
