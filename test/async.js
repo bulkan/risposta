@@ -221,6 +221,47 @@ describe('async', function(){
       })
     });
 
+    it(' .series empty array', function(done){
+      async.series([]).then(function(results){
+        results.should.be.eql([]);
+        done();
+      });
+    });
+
+    it(' .series object', function(done){
+      var call_order = [];
+
+      async.series({
+        one: function(callback){
+          setTimeout(function(){
+            call_order.push(1);
+            callback(null, 1);
+          }, 125);
+        },
+        two: function(callback){
+          setTimeout(function(){
+            call_order.push(2);
+            callback(null, 2);
+          }, 200);
+        },
+        three: function(callback){
+          setTimeout(function(){
+            call_order.push(3);
+            callback(null, 3,3);
+          }, 50);
+        }
+      }).then(function(results){
+        results.should.be.eql({
+          one: 1,
+          two: 2,
+          three: [3,3]
+        });
+        call_order.should.be.eql([1,2,3]);
+        done();
+      });
+    })
+
+
     it(' .parallel');
     it(' .filter');
     it(' .reduce');
