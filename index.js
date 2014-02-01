@@ -1,11 +1,11 @@
+var async = require('./lib/async');
 
+// load the Q implementation
 module.exports.q = function(){
-  var Q = require('q');
-  return require('./lib/async')(Q, Q.denodeify, Q.all);
+  return async(require('q'), null, 'denodeify');
 }
 
+// load the bluebird implementation
 module.exports.bluebird = function(){
-  var Promise = require('bluebird');
-
-  return require('./lib/async')(Promise.resolve, Promise.promisify, Promise.all);
+  return async(require('bluebird'), 'resolve', 'promisify');
 }
