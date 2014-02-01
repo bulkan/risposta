@@ -13,6 +13,29 @@ function exp(call_order, x, cb){
   }, Math.random() * 10);
 };
 
+function getFunctionsObject(call_order){
+  return {
+    one: function(callback){
+      setTimeout(function(){
+        call_order.push(1);
+        callback(null, 1);
+      }, 15);
+    },
+    two: function(callback){
+      setTimeout(function(){
+        call_order.push(2);
+        callback(null, 2);
+      }, 20);
+    },
+    three: function(callback){
+      setTimeout(function(){
+        call_order.push(3);
+        callback(null, 3,3);
+      }, 10);
+    }
+  }
+}
+
 
 describe('async', function(){
 
@@ -115,6 +138,20 @@ describe('async', function(){
         done();
       })
     });
+
+    it(' .series object', function(done){
+      var call_order = [];
+
+      async.series(getFunctionsObject(call_order)).then(function(results){
+        results.should.be.eql({
+          one: 1,
+          two: 2,
+          three: [3,3]
+        });
+        call_order.should.be.eql([1,2,3]);
+        done();
+      });
+    })
 
     it(' .parallel');
     it(' .filter');
@@ -228,29 +265,11 @@ describe('async', function(){
       });
     });
 
+
     it(' .series object', function(done){
       var call_order = [];
 
-      async.series({
-        one: function(callback){
-          setTimeout(function(){
-            call_order.push(1);
-            callback(null, 1);
-          }, 125);
-        },
-        two: function(callback){
-          setTimeout(function(){
-            call_order.push(2);
-            callback(null, 2);
-          }, 200);
-        },
-        three: function(callback){
-          setTimeout(function(){
-            call_order.push(3);
-            callback(null, 3,3);
-          }, 50);
-        }
-      }).then(function(results){
+      async.series(getFunctionsObject(call_order)).then(function(results){
         results.should.be.eql({
           one: 1,
           two: 2,
@@ -260,7 +279,6 @@ describe('async', function(){
         done();
       });
     })
-
 
     it(' .parallel');
     it(' .filter');
