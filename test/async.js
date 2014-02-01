@@ -6,9 +6,10 @@ function dummyAsync(item, cb){
   }, Math.random() * 100);
 };
 
-function exp(item, cb){
+function exp(call_order, x, cb){
   setTimeout(function(){
-    cb(null, item * item);
+    call_order.push(x);
+    cb(null, x * x);
   }, Math.random() * 10);
 };
 
@@ -31,8 +32,24 @@ describe('async', function(){
     });
 
     it(' .map', function(done){
-      var p = async.map([2, 3, 4], exp);
+      var call_order = []
+        , p = async.map([2, 3, 4], exp.bind(this, call_order));
+
       p.then(function(results){
+        results.length.should.equal(3);
+        results.should.contain(4);
+        results.should.contain(9);
+        results.should.contain(16);
+        done();
+      });
+    });
+
+    it(' .mapSeries', function(done){
+      var call_order = []
+        , p = async.mapSeries([2, 3, 4], exp.bind(this, call_order));
+
+      p.then(function(results){
+        call_order.should.be.eql([2, 3, 4]);
         results.length.should.equal(3);
         results.should.contain(4);
         results.should.contain(9);
@@ -57,8 +74,24 @@ describe('async', function(){
     });
 
     it(' .map', function(done){
-      var p = async.map([2, 3, 4], exp);
+      var call_order = []
+        , p = async.map([2, 3, 4], exp.bind(this, call_order));
+
       p.then(function(results){
+        results.length.should.equal(3);
+        results.should.contain(4);
+        results.should.contain(9);
+        results.should.contain(16);
+        done();
+      });
+    });
+
+    it(' .mapSeries', function(done){
+      var call_order = []
+        , p = async.mapSeries([2, 3, 4], exp.bind(this, call_order));
+
+      p.then(function(results){
+        call_order.should.be.eql([2, 3, 4]);
         results.length.should.equal(3);
         results.should.contain(4);
         results.should.contain(9);
