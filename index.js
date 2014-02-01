@@ -1,8 +1,10 @@
 
 module.exports.q = function(){
-  return require('./lib/q');
+  var Q= require('q');
+  return require('./lib/async')(Q.denodeify, Q.all);
 }
 
 module.exports.bluebird = function(){
-  return require('./lib/bluebird');
+  var Promise = require('bluebird');
+  return require('./lib/async')(Promise.promisify, Promise.all);
 }
