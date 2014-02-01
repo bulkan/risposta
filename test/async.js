@@ -60,19 +60,19 @@ describe('async', function(){
     it(' .series', function(done){
       var call_order = [];
       async.series([
-        function(err, callback){
+        function(callback){
           setTimeout(function(){
             call_order.push(1);
             callback(null, 1);
           }, 25);
         },
-        function(err, callback){
+        function(callback){
           setTimeout(function(){
             call_order.push(2);
             callback(null, 2);
           }, 50);
         },
-        function(err, callback){
+        function(callback){
           setTimeout(function(){
             call_order.push(3);
             callback(null, 3,3);
@@ -165,19 +165,19 @@ describe('async', function(){
     it(' .series', function(done){
       var call_order = [];
       async.series([
-        function(err, callback){
+        function(callback){
           setTimeout(function(){
             call_order.push(1);
             callback(null, 1);
           }, 25);
         },
-        function(err, callback){
+        function(callback){
           setTimeout(function(){
             call_order.push(2);
             callback(null, 2);
           }, 50);
         },
-        function(err, callback){
+        function(callback){
           setTimeout(function(){
             call_order.push(3);
             callback(null, 3,3);
