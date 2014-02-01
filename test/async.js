@@ -6,6 +6,13 @@ function dummyAsync(item, cb){
   }, Math.random() * 100);
 };
 
+function exp(item, cb){
+  setTimeout(function(){
+    cb(null, item * item);
+  }, Math.random() * 10);
+};
+
+
 
 describe('async', function(){
 
@@ -19,6 +26,17 @@ describe('async', function(){
       p.then(function(results){
         results.should.not.be.empty;
         results.length.should.equal(3);
+        done();
+      });
+    });
+
+    it(' .map', function(done){
+      var p = async.map([2, 3, 4], exp);
+      p.then(function(results){
+        results.length.should.equal(3);
+        results.should.contain(4);
+        results.should.contain(9);
+        results.should.contain(16);
         done();
       });
     });
@@ -37,10 +55,19 @@ describe('async', function(){
         done();
       });
     });
+
+    it(' .map', function(done){
+      var p = async.map([2, 3, 4], exp);
+      p.then(function(results){
+        results.length.should.equal(3);
+        results.should.contain(4);
+        results.should.contain(9);
+        results.should.contain(16);
+        done();
+      });
+    });
     
   });
-
-
 
 
 });
