@@ -163,7 +163,45 @@ describe('async', function(){
       }).finally(done);
     })
 
-    it(' .parallel');
+    it(' .parallel', function(done){
+      var call_order = [];
+      async.parallel([
+        function(callback){
+          setTimeout(function(){
+            call_order.push(1);
+            callback(null, 1);
+          }, 50);
+        },
+        function(callback){
+          setTimeout(function(){
+            call_order.push(2);
+            callback(null, 2);
+          }, 100);
+        },
+        function(callback){
+          setTimeout(function(){
+            call_order.push(3);
+            callback(null, 3,3);
+          }, 25);
+        }
+      ]).then(function(results){
+        call_order.should.be.eql([3,1,2]);
+        results.should.be.eql([1,2,[3,3]]);
+      }).finally(done);
+    });
+
+    it(' .parallel object', function(done){
+      var call_order = [];
+      async.parallel(getFunctionsObject(call_order)).then(function(results){
+        call_order.should.be.eql([3,1,2]);
+        results.should.be.eql({
+          one: 1,
+          two: 2,
+          three: [3,3]
+        });
+      }).finally(done);
+    });
+
     it(' .filter');
     it(' .reduce');
   });
@@ -299,7 +337,45 @@ describe('async', function(){
       }).finally(done);
     })
 
-    it(' .parallel');
+    it(' .parallel', function(done){
+      var call_order = [];
+      async.parallel([
+        function(callback){
+          setTimeout(function(){
+            call_order.push(1);
+            callback(null, 1);
+          }, 50);
+        },
+        function(callback){
+          setTimeout(function(){
+            call_order.push(2);
+            callback(null, 2);
+          }, 100);
+        },
+        function(callback){
+          setTimeout(function(){
+            call_order.push(3);
+            callback(null, 3,3);
+          }, 25);
+        }
+      ]).then(function(results){
+        call_order.should.be.eql([3,1,2]);
+        results.should.be.eql([1,2,[3,3]]);
+      }).finally(done);
+    });
+
+    it(' .parallel object', function(done){
+      var call_order = [];
+      async.parallel(getFunctionsObject(call_order)).then(function(results){
+        call_order.should.be.eql([3,1,2]);
+        results.should.be.eql({
+          one: 1,
+          two: 2,
+          three: [3,3]
+        });
+      }).finally(done);
+    });
+
     it(' .filter');
     it(' .reduce');
     
