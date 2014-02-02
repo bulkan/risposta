@@ -153,6 +153,22 @@ describe('async', function(){
       });
     })
 
+    it(' .forever', function(done){
+      var counter = 0;
+      function addOne(callback) {
+        counter++;
+        if (counter === 50) {
+          return callback('too big!');
+        }
+        setImmediate(function () {
+          callback();
+        });
+      }
+      async.forever(addOne).catch(function(err) {
+        err.message.should.equal('too big!');
+      }).finally(done);
+    })
+
     it(' .parallel');
     it(' .filter');
     it(' .reduce');
@@ -278,6 +294,22 @@ describe('async', function(){
         call_order.should.be.eql([1,2,3]);
         done();
       });
+    })
+
+    it(' .forever', function(done){
+      var counter = 0;
+      function addOne(callback) {
+        counter++;
+        if (counter === 50) {
+          return callback('too big!');
+        }
+        setImmediate(function () {
+          callback();
+        });
+      }
+      async.forever(addOne).catch(function(err) {
+        err.message.should.equal('too big!');
+      }).finally(done);
     })
 
     it(' .parallel');
