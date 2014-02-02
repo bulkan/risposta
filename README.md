@@ -1,16 +1,18 @@
 risposta
 ========
 
-Functions from @caolan/async implemented using promises
+Functions from [caolan/async](github.com/caolan/async) implemented using promises. 
 
 ## Usage
 
 First load in the async;
 
 ```javascript
-// this will initilize the bluebird implementation of async
-// you can also call .q() to initilize the implementation of
-// async using Q
+/** This will initilize the bluebird implementation of async
+* you can also call .q() to initilize the implementation of
+* async using Q
+*/
+
 var async = require('risposta').bluebird();
 ```
 
@@ -40,3 +42,5 @@ async.series([
 });
 
 ```
+
+**risposta** : Italian - _[Noun]_ answer, reply, response 
