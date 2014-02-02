@@ -49,8 +49,7 @@ describe('async', function(){
       p.then(function(results){
         results.should.not.be.empty;
         results.length.should.equal(3);
-        done();
-      });
+      }).finally(done);
     });
 
     it(' .map', function(done){
@@ -62,8 +61,7 @@ describe('async', function(){
         results.should.contain(4);
         results.should.contain(9);
         results.should.contain(16);
-        done();
-      });
+      }).finally(done);
     });
 
     it(' .mapSeries', function(done){
@@ -76,8 +74,7 @@ describe('async', function(){
         results.should.contain(4);
         results.should.contain(9);
         results.should.contain(16);
-        done();
-      });
+      }).finally(done);
     });
 
     it(' .series', function(done){
@@ -105,8 +102,7 @@ describe('async', function(){
         call_order.should.be.eql([1,2,3]);
         results.length.should.equal(3);
         results.should.eql([1,2, [3,3]]);
-        done();
-      });
+      }).finally(done);
     });
 
     it(' .waterfall', function(done){
@@ -135,8 +131,7 @@ describe('async', function(){
       ]).then(function(results){
         call_order.should.be.eql(['fn1','fn2','fn3','fn4']);
         results.should.be.equal('test');
-        done();
-      })
+      }).finally(done);
     });
 
     it(' .series object', function(done){
@@ -149,8 +144,7 @@ describe('async', function(){
           three: [3,3]
         });
         call_order.should.be.eql([1,2,3]);
-        done();
-      });
+      }).finally(done);
     })
 
     it(' .forever', function(done){
@@ -184,8 +178,7 @@ describe('async', function(){
       p.then(function(results){
         results.should.not.be.empty;
         results.length.should.equal(3);
-        done();
-      });
+      }).finally(done);
     });
 
     it(' .map', function(done){
@@ -197,8 +190,7 @@ describe('async', function(){
         results.should.contain(4);
         results.should.contain(9);
         results.should.contain(16);
-        done();
-      });
+      }).finally(done);
     });
 
     it(' .mapSeries', function(done){
@@ -211,8 +203,7 @@ describe('async', function(){
         results.should.contain(4);
         results.should.contain(9);
         results.should.contain(16);
-        done();
-      });
+      }).finally(done);
     });
 
     it(' .series', function(done){
@@ -240,8 +231,7 @@ describe('async', function(){
         call_order.should.be.eql([1,2,3]);
         results.length.should.equal(3);
         results.should.eql([1,2, [3,3]]);
-        done();
-      });
+      }).finally(done);
     });
 
     it(' .waterfall', function(done){
@@ -270,15 +260,13 @@ describe('async', function(){
       ]).then(function(results){
         call_order.should.be.eql(['fn1','fn2','fn3','fn4']);
         results.should.be.equal('test');
-        done();
-      })
+      }).finally(done);
     });
 
     it(' .series empty array', function(done){
       async.series([]).then(function(results){
         results.should.be.eql([]);
-        done();
-      });
+      }).finally(done);
     });
 
 
@@ -292,8 +280,7 @@ describe('async', function(){
           three: [3,3]
         });
         call_order.should.be.eql([1,2,3]);
-        done();
-      });
+      }).finally(done);
     })
 
     it(' .forever', function(done){
