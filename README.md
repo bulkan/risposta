@@ -14,7 +14,7 @@ First load in the async;
 var async = require('risposta').bluebird();
 ```
 
-### async.sync
+### async.series
 
 ```javascript
 async.series([
