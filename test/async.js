@@ -247,6 +247,14 @@ describe('async', function(){
       }).finally(done);
     });
 
+    it(' .filterSeries', function(done){
+      var call_order = [];
+      async.rejectSeries([16, 3,1,2], filterIterator.bind(this, call_order)).then(function(results){
+        results.should.be.eql([3, 1]);
+        call_order.should.be.eql([16, 3, 1, 2]);
+      }).finally(done);
+    });
+
 
     it(' .reduce');
   });
@@ -454,6 +462,14 @@ describe('async', function(){
     it(' .reject', function(done){
       var call_order = [];
       async.reject([16, 3,1,2], filterIterator.bind(this, call_order)).then(function(results){
+        results.should.be.eql([3, 1]);
+        call_order.should.be.eql([16, 3, 1, 2]);
+      }).finally(done);
+    });
+
+    it(' .filterSeries', function(done){
+      var call_order = [];
+      async.rejectSeries([16, 3,1,2], filterIterator.bind(this, call_order)).then(function(results){
         results.should.be.eql([3, 1]);
         call_order.should.be.eql([16, 3, 1, 2]);
       }).finally(done);
