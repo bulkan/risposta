@@ -13,6 +13,12 @@ function exp(call_order, x, cb){
   }, Math.random() * 10);
 };
 
+function filterIterator(x, callback){
+  setTimeout(function(){
+    return callback(null, x % 2 == 0);
+  }, x*25);
+}
+
 function getFunctionsObject(call_order){
   return {
     one: function(callback){
@@ -202,15 +208,25 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .filter', function(done){
-      function filterIterator(x, callback){
-        setTimeout(function(){
-          return callback(null, x % 2 == 0);
-        }, x*25);
-      }
-      async.filter([16, 5, 18, 3], filterIterator).then(function(results){
+    describe(' .filter', function(){
+      var results
+        , arr = [16, 5, 18, 3];
+
+      before(function(done){
+        async.filter(arr, filterIterator).then(function(_results){
+          results = _results;
+        }).finally(done);
+      })
+
+      it(' results are correct', function(done){
         results.should.be.eql([16, 18]);
-      }).finally(done);
+        done();
+      });
+
+      it(' original array is untouched', function(done){
+        arr.should.be.eql([16, 5, 18, 3]);
+        done();
+      });
     });
 
     it(' .reduce');
@@ -386,15 +402,25 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .filter', function(done){
-      function filterIterator(x, callback){
-        setTimeout(function(){
-          return callback(null, x % 2 == 0);
-        }, x*25);
-      }
-      async.filter([16, 5, 18, 3], filterIterator).then(function(results){
+    describe(' .filter', function(){
+      var results
+        , arr = [16, 5, 18, 3];
+
+      before(function(done){
+        async.filter(arr, filterIterator).then(function(_results){
+          results = _results;
+        }).finally(done);
+      })
+
+      it(' results are correct', function(done){
         results.should.be.eql([16, 18]);
-      }).finally(done);
+        done();
+      });
+
+      it(' original array is untouched', function(done){
+        arr.should.be.eql([16, 5, 18, 3]);
+        done();
+      });
     });
 
     it(' .reduce');
