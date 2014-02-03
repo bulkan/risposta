@@ -13,8 +13,9 @@ function exp(call_order, x, cb){
   }, Math.random() * 10);
 };
 
-function filterIterator(x, callback){
+function filterIterator(call_order, x, callback){
   setTimeout(function(){
+    call_order.push(x);
     return callback(null, x % 2 == 0);
   }, x*25);
 }
@@ -210,10 +211,11 @@ describe('async', function(){
 
     describe(' .filter', function(){
       var results
+        , call_order = []
         , arr = [16, 5, 18, 3];
 
       before(function(done){
-        async.filter(arr, filterIterator).then(function(_results){
+        async.filter(arr, filterIterator.bind(this, call_order)).then(function(_results){
           results = _results;
         }).finally(done);
       })
@@ -227,6 +229,14 @@ describe('async', function(){
         arr.should.be.eql([16, 5, 18, 3]);
         done();
       });
+    });
+
+    it(' .filterSeries', function(done){
+      var call_order = [];
+      async.filterSeries([16, 3,1,2], filterIterator.bind(this, call_order)).then(function(results){
+        results.should.be.eql([16, 2]);
+        call_order.should.be.eql([16, 3, 1, 2]);
+      }).finally(done);
     });
 
     it(' .reduce');
@@ -404,10 +414,11 @@ describe('async', function(){
 
     describe(' .filter', function(){
       var results
+        , call_order = []
         , arr = [16, 5, 18, 3];
 
       before(function(done){
-        async.filter(arr, filterIterator).then(function(_results){
+        async.filter(arr, filterIterator.bind(this, call_order)).then(function(_results){
           results = _results;
         }).finally(done);
       })
@@ -421,6 +432,14 @@ describe('async', function(){
         arr.should.be.eql([16, 5, 18, 3]);
         done();
       });
+    });
+
+    it(' .filterSeries', function(done){
+      var call_order = [];
+      async.filterSeries([16, 3,1,2], filterIterator.bind(this, call_order)).then(function(results){
+        results.should.be.eql([16, 2]);
+        call_order.should.be.eql([16, 3, 1, 2]);
+      }).finally(done);
     });
 
     it(' .reduce');
