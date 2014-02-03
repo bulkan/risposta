@@ -202,7 +202,17 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .filter');
+    it(' .filter', function(done){
+      function filterIterator(x, callback){
+        setTimeout(function(){
+          return callback(null, x % 2 == 0);
+        }, x*25);
+      }
+      async.filter([16, 5, 18, 3], filterIterator).then(function(results){
+        results.should.be.eql([16, 18]);
+      }).finally(done);
+    });
+
     it(' .reduce');
   });
 
@@ -376,10 +386,19 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .filter');
+    it(' .filter', function(done){
+      function filterIterator(x, callback){
+        setTimeout(function(){
+          return callback(null, x % 2 == 0);
+        }, x*25);
+      }
+      async.filter([16, 5, 18, 3], filterIterator).then(function(results){
+        results.should.be.eql([16, 18]);
+      }).finally(done);
+    });
+
     it(' .reduce');
     
   });
-
 
 });
