@@ -266,7 +266,7 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it('reduce async with non-reference memo', function(done){
+    it(' .reduce async with non-reference memo', function(done){
       async.reduce([1,3,2], 0, function(a, x, callback){
           setTimeout(function(){
             callback(null, a + x);
@@ -540,7 +540,7 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it('reduce async with non-reference memo', function(done){
+    it(' .reduce async with non-reference memo', function(done){
       async.reduce([1,3,2], 0, function(a, x, callback){
           setTimeout(function(){
             callback(null, a + x);
