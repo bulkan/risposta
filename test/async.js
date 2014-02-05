@@ -288,6 +288,29 @@ describe('async', function(){
         call_order.should.eql([3,2,1]);
       }).finally(done);
     });
+
+    it(' .detect', function(done){
+      async.detect([3, 2, 4, 5], function(x, callback){
+        setTimeout(function(){
+          callback(null, x % 2 == 0);
+        }, Math.random() * 10);
+      }).then(function(result){
+        result.should.be.equal(2);
+      }).finally(done);
+    });
+
+    it(' .detectSeries');
+    it(' .sortBy');
+    it(' .some');
+    it(' .every');
+    it(' .concat');
+    it(' .concatSeries');
+    it(' .whilst');
+    it(' .doWhilst');
+    it(' .until');
+    it(' .compose');
+    it(' .applyEach');
+    it(' .applyEachSeries');
   });
 
   describe('implemented using bluebird', function(){
@@ -539,6 +562,30 @@ describe('async', function(){
         call_order.should.eql([3,2,1]);
       }).finally(done);
     });
+
+    it(' .detect', function(done){
+      async.detect([3, 2, 4, 5], function(x, callback){
+        setTimeout(function(){
+          callback(null, x % 2 == 0);
+        }, Math.random() * 10);
+      }).then(function(result){
+        result.should.be.equal(2);
+      }).finally(done);
+    });
+
+    it(' .detectSeries');
+    it(' .sortBy');
+    it(' .some');
+    it(' .every');
+    it(' .concat');
+    it(' .concatSeries');
+    it(' .whilst');
+    it(' .doWhilst');
+    it(' .until');
+    it(' .compose');
+    it(' .applyEach');
+    it(' .applyEachSeries');
+
 
   });
 });
