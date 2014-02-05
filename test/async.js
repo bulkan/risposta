@@ -265,6 +265,29 @@ describe('async', function(){
         call_order.should.eql([1,2,3]);
       }).finally(done);
     });
+
+    it('reduce async with non-reference memo', function(done){
+      async.reduce([1,3,2], 0, function(a, x, callback){
+          setTimeout(function(){
+            callback(null, a + x);
+          }, Math.random()*100);
+      }).then(function(result){
+        result.should.equal(6);
+      }).finally(done);
+    });
+
+    it(' .reduceRight', function(done){
+      var call_order = [];
+      var a = [1,2,3];
+
+      async.reduceRight(a, 0, function(a, x, callback){
+        call_order.push(x);
+        callback(null, a + x);
+      }).then(function(result){
+        result.should.equal(6);
+        call_order.should.eql([3,2,1]);
+      }).finally(done);
+    });
   });
 
   describe('implemented using bluebird', function(){
@@ -493,5 +516,29 @@ describe('async', function(){
         call_order.should.eql([1,2,3]);
       }).finally(done);
     });
+
+    it('reduce async with non-reference memo', function(done){
+      async.reduce([1,3,2], 0, function(a, x, callback){
+          setTimeout(function(){
+            callback(null, a + x);
+          }, Math.random()*100);
+      }).then(function(result){
+        result.should.equal(6);
+      }).finally(done);
+    });
+
+    it(' .reduceRight', function(done){
+      var call_order = [];
+      var a = [1,2,3];
+
+      async.reduceRight(a, 0, function(a, x, callback){
+        call_order.push(x);
+        callback(null, a + x);
+      }).then(function(result){
+        result.should.equal(6);
+        call_order.should.eql([3,2,1]);
+      }).finally(done);
+    });
+
   });
 });
