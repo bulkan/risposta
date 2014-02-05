@@ -255,8 +255,16 @@ describe('async', function(){
       }).finally(done);
     });
 
-
-    it(' .reduce');
+    it(' .reduce', function(done){
+      var call_order = [];
+      async.reduce([1,2,3], 0, function(a, x, callback){
+        call_order.push(x);
+        callback(null, a + x);
+      }).then(function(result){
+        result.should.equal(6);
+        call_order.should.eql([1,2,3]);
+      }).finally(done);
+    });
   });
 
   describe('implemented using bluebird', function(){
@@ -475,8 +483,15 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .reduce');
-    
+    it(' .reduce', function(done){
+      var call_order = [];
+      async.reduce([1,2,3], 0, function(a, x, callback){
+        call_order.push(x);
+        callback(null, a + x);
+      }).then(function(result){
+        result.should.equal(6);
+        call_order.should.eql([1,2,3]);
+      }).finally(done);
+    });
   });
-
 });
