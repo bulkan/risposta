@@ -312,7 +312,14 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .sortBy');
+    it(' .sortBy', function(done){
+      async.sortBy([{a:1},{a:15},{a:6}], function(x, callback){
+        setTimeout(function(){callback(null, x.a);}, 0);
+      }).then(function(result){
+        result.should.be.eql([{a:1},{a:6},{a:15}]);
+      }).finally(done);
+    });
+
     it(' .some');
     it(' .every');
     it(' .concat');
@@ -598,7 +605,14 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .sortBy');
+    it(' .sortBy', function(done){
+      async.sortBy([{a:1},{a:15},{a:6}], function(x, callback){
+        setTimeout(function(){callback(null, x.a);}, 0);
+      }).then(function(result){
+        result.should.be.eql([{a:1},{a:6},{a:15}]);
+      }).finally(done);
+    });
+
     it(' .some');
     it(' .every');
     it(' .concat');
