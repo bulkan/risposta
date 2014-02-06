@@ -320,7 +320,22 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .some');
+    it(' .some true', function(done){
+      async.some([3,1,2], function(x, callback){
+        setTimeout(function(){callback(x === 1);}, 0);
+      }).then(function(result){
+        result.should.be.true;
+      }).finally(done);
+    });
+
+    it(' .some false', function(done){
+      async.some([3,1,2], function(x, callback){
+        setTimeout(function(){callback(x === 10);}, 0);
+      }).then(function(result){
+        result.should.be.false;
+      }).finally(done);
+    });
+    
     it(' .every');
     it(' .concat');
     it(' .concatSeries');
@@ -613,7 +628,38 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .some');
+    it(' .some true', function(done){
+      async.some([3,1,2], function(x, callback){
+        setTimeout(function(){callback(x === 1);}, 0);
+      }).then(function(result){
+        result.should.be.true;
+      }).finally(done);
+    });
+
+    it(' .some false', function(done){
+      async.some([3,1,2], function(x, callback){
+        setTimeout(function(){callback(x === 10);}, 0);
+      }).then(function(result){
+        result.should.be.false;
+      }).finally(done);
+    });
+
+    //it('some early return', function(done){
+      //var call_order = [];
+      //async.some([1,2,3], function(x, callback){
+        //setTimeout(function(){
+          //call_order.push(x);
+          //callback(x === 1);
+        //}, x*25);
+      //}).then(function(result){
+        //call_order.push('callback');
+      //});
+      //setTimeout(function(){
+        //call_order.should.be.eql([1,'callback',2,3]);
+        //done();
+      //}, 100);
+    //});
+
     it(' .every');
     it(' .concat');
     it(' .concatSeries');
