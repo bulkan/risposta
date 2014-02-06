@@ -299,7 +299,19 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .detectSeries');
+    it(' .detectSeries', function(done){
+      var call_order = [];
+      async.detectSeries([3, 2, 4, 5], function(x, callback){
+        setTimeout(function(){
+          call_order.push(x);
+          callback(null, x % 2 == 0);
+        }, Math.random() * 10);
+      }).then(function(result){
+        call_order.should.eql([3,2,4,5]);
+        result.should.be.equal(2);
+      }).finally(done);
+    });
+
     it(' .sortBy');
     it(' .some');
     it(' .every');
@@ -573,7 +585,19 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .detectSeries');
+    it(' .detectSeries', function(done){
+      var call_order = [];
+      async.detectSeries([3, 2, 4, 5], function(x, callback){
+        setTimeout(function(){
+          call_order.push(x);
+          callback(null, x % 2 == 0);
+        }, Math.random() * 10);
+      }).then(function(result){
+        call_order.should.eql([3,2,4,5]);
+        result.should.be.equal(2);
+      }).finally(done);
+    });
+
     it(' .sortBy');
     it(' .some');
     it(' .every');
