@@ -336,7 +336,14 @@ describe('async', function(){
       }).finally(done);
     });
     
-    it(' .every');
+    it(' .every true', function(done){
+      async.every([1,2,3], function(x, callback){
+        setTimeout(function(){callback(true);}, 0);
+      }).then(function(result){
+        result.should.be.true;
+      }).finally(done);
+    });
+
     it(' .concat');
     it(' .concatSeries');
     it(' .whilst');
