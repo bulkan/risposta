@@ -4,19 +4,19 @@ function dummyAsync(item, cb){
   setTimeout(function(){
     return cb(null, item);
   }, Math.random() * 2);
-};
+}
 
 function exp(call_order, x, cb){
   setTimeout(function(){
     call_order.push(x);
     cb(null, x * x);
-  }, Math.random() * 10);
-};
+  }, Math.random() * 2);
+}
 
 function filterIterator(call_order, x, callback){
   setTimeout(function(){
     call_order.push(x);
-    return callback(null, x % 2 == 0);
+    return callback(null, x % 2 === 0);
   }, x*2);
 }
 
@@ -40,7 +40,7 @@ function getFunctionsObject(call_order){
         callback(null, 3,3);
       }, 1);
     }
-  }
+  };
 }
 
 
