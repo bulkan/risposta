@@ -8,7 +8,7 @@ and the new [faster](http://spion.github.io/posts/why-i-am-switching-to-promises
 Promise library [bluebird](https://github.com/petkaantonov/bluebird).
 
 Most of the code is based off this [gist](https://gist.github.com/wavded/6116786)
-by @wavdad though risposta is on feature parity with async.js. For example the 
+by @wavdad though _risposta_ is on feature parity with async.js. For example the 
 implemenation of `async.series` & `async.parallel` by @wavdad does not support
 the ability to pass in a object containing task functions as properties.
 
@@ -54,7 +54,5 @@ async.series([
 });
 
 ```
-
-
 
 **risposta** : Italian - _[Noun]_ answer, reply, response 

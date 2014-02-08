@@ -352,8 +352,55 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .concat');
-    it(' .concatSeries');
+    it(' .concat', function(done){
+      var call_order = [];
+      var iterator = function (x, cb) {
+        setTimeout(function(){
+          call_order.push(x);
+          var r = [];
+          while (x > 0) {
+            r.push(x);
+            x--;
+          }
+          cb(null, r);
+        }, x*2);
+      };
+      async.concat([1,3,2], iterator).then(function(results){
+        results.should.be.eql([1,2,1,3,2,1]);
+        call_order.should.be.eql([1,2,3]);
+      }).finally(done);
+    });
+
+    it(' .concat error', function(done){
+      var iterator = function (x, cb) {
+        setTimeout(function(){
+          return cb(new Error('test error'));
+        }, x)
+      };
+      async.concat([1,2,3], iterator).catch(function(err){
+        err.should.not.be.empty;
+      }).finally(done);
+    });
+
+    it(' .concatSeries', function(done){
+      var call_order = [];
+      var iterator = function (x, cb) {
+        setTimeout(function(){
+          call_order.push(x);
+          var r = [];
+          while (x > 0) {
+            r.push(x);
+            x--;
+          }
+          cb(null, r);
+        }, x);
+      };
+      async.concatSeries([1,3,2], iterator).then(function( results){
+        results.should.be.eql([1,3,2,1,2,1]);
+        call_order.should.be.eql([1,3,2]);
+      }).finally(done);
+    });
+
     it(' .whilst');
     it(' .doWhilst');
     it(' .until');
@@ -691,8 +738,55 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .concat');
-    it(' .concatSeries');
+    it(' .concat', function(done){
+      var call_order = [];
+      var iterator = function (x, cb) {
+        setTimeout(function(){
+          call_order.push(x);
+          var r = [];
+          while (x > 0) {
+            r.push(x);
+            x--;
+          }
+          cb(null, r);
+        }, x*2);
+      };
+      async.concat([1,3,2], iterator).then(function(results){
+        results.should.be.eql([1,2,1,3,2,1]);
+        call_order.should.be.eql([1,2,3]);
+      }).finally(done);
+    });
+    
+    it(' .concat error', function(done){
+      var iterator = function (x, cb) {
+        setTimeout(function(){
+          return cb(new Error('test error'));
+        }, x)
+      };
+      async.concat([1,2,3], iterator).catch(function(err){
+        err.should.not.be.empty;
+      }).finally(done);
+    });
+
+    it(' .concatSeries', function(done){
+      var call_order = [];
+      var iterator = function (x, cb) {
+        setTimeout(function(){
+          call_order.push(x);
+          var r = [];
+          while (x > 0) {
+            r.push(x);
+            x--;
+          }
+          cb(null, r);
+        }, x);
+      };
+      async.concatSeries([1,3,2], iterator).then(function( results){
+        results.should.be.eql([1,3,2,1,2,1]);
+        call_order.should.be.eql([1,3,2]);
+      }).finally(done);
+    });
+
     it(' .whilst');
     it(' .doWhilst');
     it(' .until');
