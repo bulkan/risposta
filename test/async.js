@@ -17,7 +17,7 @@ function filterIterator(call_order, x, callback){
   setTimeout(function(){
     call_order.push(x);
     return callback(null, x % 2 == 0);
-  }, x*25);
+  }, x*2);
 }
 
 function getFunctionsObject(call_order){
@@ -344,6 +344,14 @@ describe('async', function(){
       }).finally(done);
     });
 
+    it(' .every false', function(done){
+      async.every([1,2,3], function(x, callback){
+        setTimeout(function(){callback(x % 2);}, 0);
+      }).then(function(result){
+        result.should.be.false;
+      }).finally(done);
+    });
+
     it(' .concat');
     it(' .concatSeries');
     it(' .whilst');
@@ -667,7 +675,22 @@ describe('async', function(){
       //}, 100);
     //});
 
-    it(' .every');
+    it(' .every true', function(done){
+      async.every([1,2,3], function(x, callback){
+        setTimeout(function(){callback(true);}, 0);
+      }).then(function(result){
+        result.should.be.true;
+      }).finally(done);
+    });
+
+    it(' .every false', function(done){
+      async.every([1,2,3], function(x, callback){
+        setTimeout(function(){callback(x % 2);}, 0);
+      }).then(function(result){
+        result.should.be.false;
+      }).finally(done);
+    });
+
     it(' .concat');
     it(' .concatSeries');
     it(' .whilst');
