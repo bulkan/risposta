@@ -3,6 +3,17 @@ risposta
 
 Functions from [caolan/async](github.com/caolan/async) implemented using promises. 
 
+_risposta_ uses the popular Promise implementation from [Q](github.com/kriskowal/q)
+and the new [faster](http://spion.github.io/posts/why-i-am-switching-to-promises.html) 
+Promise library [bluebird](https://github.com/petkaantonov/bluebird).
+
+Most of the code is based off this [gist](https://gist.github.com/wavded/6116786)
+by @wavdad though risposta is on feature parity with async.js. For example the 
+implemenation of `async.series` & `async.parallel` by @wavdad does not support
+the ability to pass in a object containing task functions as properties.
+
+    npm install risposta
+
 ## Usage
 
 First load in the async;
@@ -38,9 +49,12 @@ async.series([
     }, 110)
   }
 ]).then(function(results){
-  console.log(results); // result is [ 2, [ 'a', 'b' ], 3 ] ] ]
+  console.log(results); 
+  // result is [ 2, [ 'a', 'b' ], 3 ] ] ]
 });
 
 ```
+
+
 
 **risposta** : Italian - _[Noun]_ answer, reply, response 
