@@ -3,7 +3,7 @@ var should = require('chai').should();
 function dummyAsync(item, cb){
   setTimeout(function(){
     return cb(null, item);
-  }, Math.random() * 100);
+  }, Math.random() * 2);
 };
 
 function exp(call_order, x, cb){
@@ -26,19 +26,19 @@ function getFunctionsObject(call_order){
       setTimeout(function(){
         call_order.push(1);
         callback(null, 1);
-      }, 15);
+      }, 3);
     },
     two: function(callback){
       setTimeout(function(){
         call_order.push(2);
         callback(null, 2);
-      }, 20);
+      }, 6);
     },
     three: function(callback){
       setTimeout(function(){
         call_order.push(3);
         callback(null, 3,3);
-      }, 10);
+      }, 1);
     }
   }
 }
@@ -91,19 +91,19 @@ describe('async', function(){
           setTimeout(function(){
             call_order.push(1);
             callback(null, 1);
-          }, 25);
+          }, 3);
         },
         function(callback){
           setTimeout(function(){
             call_order.push(2);
             callback(null, 2);
-          }, 50);
+          }, 5);
         },
         function(callback){
           setTimeout(function(){
             call_order.push(3);
             callback(null, 3,3);
-          }, 15);
+          }, 2);
          }
       ]).then(function(results){
         call_order.should.be.eql([1,2,3]);
@@ -177,19 +177,19 @@ describe('async', function(){
           setTimeout(function(){
             call_order.push(1);
             callback(null, 1);
-          }, 50);
+          }, 3);
         },
         function(callback){
           setTimeout(function(){
             call_order.push(2);
             callback(null, 2);
-          }, 100);
+          }, 5);
         },
         function(callback){
           setTimeout(function(){
             call_order.push(3);
             callback(null, 3,3);
-          }, 25);
+          }, 1);
         }
       ]).then(function(results){
         call_order.should.be.eql([3,1,2]);
@@ -270,7 +270,7 @@ describe('async', function(){
       async.reduce([1,3,2], 0, function(a, x, callback){
           setTimeout(function(){
             callback(null, a + x);
-          }, Math.random()*100);
+          }, Math.random()*2);
       }).then(function(result){
         result.should.equal(6);
       }).finally(done);
@@ -454,19 +454,19 @@ describe('async', function(){
           setTimeout(function(){
             call_order.push(1);
             callback(null, 1);
-          }, 25);
+          }, 3);
         },
         function(callback){
           setTimeout(function(){
             call_order.push(2);
             callback(null, 2);
-          }, 50);
+          }, 5);
         },
         function(callback){
           setTimeout(function(){
             call_order.push(3);
             callback(null, 3,3);
-          }, 15);
+          }, 1);
          }
       ]).then(function(results){
         call_order.should.be.eql([1,2,3]);
@@ -547,19 +547,19 @@ describe('async', function(){
           setTimeout(function(){
             call_order.push(1);
             callback(null, 1);
-          }, 50);
+          }, 3);
         },
         function(callback){
           setTimeout(function(){
             call_order.push(2);
             callback(null, 2);
-          }, 100);
+          }, 5);
         },
         function(callback){
           setTimeout(function(){
             call_order.push(3);
             callback(null, 3,3);
-          }, 25);
+          }, 1);
         }
       ]).then(function(results){
         call_order.should.be.eql([3,1,2]);
@@ -640,7 +640,7 @@ describe('async', function(){
       async.reduce([1,3,2], 0, function(a, x, callback){
           setTimeout(function(){
             callback(null, a + x);
-          }, Math.random()*100);
+          }, Math.random()*2);
       }).then(function(result){
         result.should.equal(6);
       }).finally(done);
