@@ -426,7 +426,31 @@ describe('async', function(){
         }).finally(done);
     });
 
-    it(' .doWhilst');
+    it(' .doWhilst', function(done) {
+      var call_order = [];
+
+      var count = 0;
+      async.doWhilst(
+        function (cb) {
+          call_order.push(['iterator', count]);
+          count++;
+          cb();
+        },
+        function () {
+          call_order.push(['test', count]);
+          return (count < 5);
+        }).then(function() {
+          call_order.should.be.eql([
+            ['iterator', 0], ['test', 1],
+            ['iterator', 1], ['test', 2],
+            ['iterator', 2], ['test', 3],
+            ['iterator', 3], ['test', 4],
+            ['iterator', 4], ['test', 5]
+          ]);
+          count.should.be.equal(5);
+        }).finally(done);
+    });
+
     it(' .until');
     it(' .compose');
     it(' .applyEach');
@@ -836,8 +860,32 @@ describe('async', function(){
         }).finally(done);
     });
 
+    it(' .doWhilst', function(done) {
+      var call_order = [];
 
-    it(' .doWhilst');
+      var count = 0;
+      async.doWhilst(
+        function (cb) {
+          call_order.push(['iterator', count]);
+          count++;
+          cb();
+        },
+        function () {
+          call_order.push(['test', count]);
+          return (count < 5);
+        }).then(function() {
+          call_order.should.be.eql([
+            ['iterator', 0], ['test', 1],
+            ['iterator', 1], ['test', 2],
+            ['iterator', 2], ['test', 3],
+            ['iterator', 3], ['test', 4],
+            ['iterator', 4], ['test', 5]
+          ]);
+          count.should.be.equal(5);
+        }).finally(done);
+    });
+
+
     it(' .until');
     it(' .compose');
     it(' .applyEach');
