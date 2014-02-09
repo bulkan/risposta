@@ -452,9 +452,12 @@ describe('async', function(){
     });
 
     it(' .until');
+    it(' .doUntil');
     it(' .compose');
     it(' .applyEach');
     it(' .applyEachSeries');
+    it(' .times');
+    it(' .timesSeries');
   });
 
   describe('implemented using bluebird', function(){
@@ -887,9 +890,12 @@ describe('async', function(){
 
 
     it(' .until');
+    it(' .doUntil');
     it(' .compose');
     it(' .applyEach');
     it(' .applyEachSeries');
+    it(' .times');
+    it(' .timesSeries');
 
 
   });
