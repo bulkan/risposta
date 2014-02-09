@@ -557,9 +557,60 @@ describe('async', function(){
       }).finally(done);
     });
 
+    it(' .compose', function(done){
+      var add2 = function (n, cb) {
+        n.should.be.equal(3);
+        setTimeout(function () {
+          cb(null, n + 2);
+        }, 3);
+      };
+      var mul3 = function (n, cb) {
+        n.should.be.equal(5);
+        setTimeout(function () {
+          cb(null, n * 3);
+        }, 1);
+      };
+      var add1 = function (n, cb) {
+        n.should.be.equal(15);
+        setTimeout(function () {
+          cb(null, n + 1);
+        }, 5);
+      };
+      var add2mul3add1 = async.compose(add1, mul3, add2);
+      add2mul3add1(3).then(function(result) {
+        result.should.be.equal(16);
+      }).finally(done);
+    });
+
+    it(' .compose error',  function(done) {
+      var testerr = new Error('test');
+
+      var add2 = function (n, cb) {
+        n.should.be.equal(3);
+        setTimeout(function () {
+          cb(null, n + 2);
+        }, 3);
+      };
+      var mul3 = function (n, cb) {
+        n.should.be.equal(5);
+        setTimeout(function () {
+          cb(testerr);
+        }, 1);
+      };
+      var add1 = function (n, cb) {
+        'add1 should not get called'.should.be.false;
+        setTimeout(function () {
+          cb(null, n + 1);
+        }, 5);
+      };
+      var add2mul3add1 = async.compose(add1, mul3, add2);
+      add2mul3add1(3).catch(function(err) {
+        err.message.should.be.eql(testerr.message);
+      }).finally(done);
+    });
+
     it(' .times');
     it(' .timesSeries');
-    it(' .compose');
   });
 
   describe('implemented using bluebird', function(){
@@ -859,22 +910,6 @@ describe('async', function(){
       }).finally(done);
     });
 
-    //it('some early return', function(done){
-      //var call_order = [];
-      //async.some([1,2,3], function(x, callback){
-        //setTimeout(function(){
-          //call_order.push(x);
-          //callback(x === 1);
-        //}, x*25);
-      //}).then(function(result){
-        //call_order.push('callback');
-      //});
-      //setTimeout(function(){
-        //call_order.should.be.eql([1,'callback',2,3]);
-        //done();
-      //}, 100);
-    //});
-
     it(' .every true', function(done){
       async.every([1,2,3], function(x, callback){
         setTimeout(function(){callback(true);}, 0);
@@ -1096,12 +1131,60 @@ describe('async', function(){
       }).finally(done);
     });
 
+    it(' .compose', function(done){
+      var add2 = function (n, cb) {
+        n.should.be.equal(3);
+        setTimeout(function () {
+          cb(null, n + 2);
+        }, 3);
+      };
+      var mul3 = function (n, cb) {
+        n.should.be.equal(5);
+        setTimeout(function () {
+          cb(null, n * 3);
+        }, 1);
+      };
+      var add1 = function (n, cb) {
+        n.should.be.equal(15);
+        setTimeout(function () {
+          cb(null, n + 1);
+        }, 5);
+      };
+      var add2mul3add1 = async.compose(add1, mul3, add2);
+      add2mul3add1(3).then(function(result) {
+        result.should.be.equal(16);
+      }).finally(done);
+    });
 
+    it(' .compose error',  function(done) {
+      var testerr = new Error('test');
+
+      var add2 = function (n, cb) {
+        n.should.be.equal(3);
+        setTimeout(function () {
+          cb(null, n + 2);
+        }, 3);
+      };
+      var mul3 = function (n, cb) {
+        n.should.be.equal(5);
+        setTimeout(function () {
+          cb(testerr);
+        }, 1);
+      };
+      var add1 = function (n, cb) {
+        'add1 should not get called'.should.be.false;
+        setTimeout(function () {
+          cb(null, n + 1);
+        }, 5);
+      };
+      var add2mul3add1 = async.compose(add1, mul3, add2);
+      add2mul3add1(3).catch(function(err) {
+        err.message.should.be.eql(testerr.message);
+      }).finally(done);
+    });
 
     it(' .times');
     it(' .timesSeries');
-    it(' .compose');
-
 
   });
 });
