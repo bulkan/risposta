@@ -451,8 +451,56 @@ describe('async', function(){
         }).finally(done);
     });
 
-    it(' .until');
-    it(' .doUntil');
+    it(' .until', function(done){
+      var call_order = [];
+
+      var count = 0;
+      async.until(
+        function () {
+          call_order.push(['test', count]);
+          return (count === 5);
+        },
+        function (cb) {
+          call_order.push(['iterator', count]);
+          count++;
+          cb();
+        }).then(function() {
+          call_order.should.be.eql([
+            ['test', 0],
+            ['iterator', 0], ['test', 1],
+            ['iterator', 1], ['test', 2],
+            ['iterator', 2], ['test', 3],
+            ['iterator', 3], ['test', 4],
+            ['iterator', 4], ['test', 5],
+          ]);
+          count.should.be.equal(5);
+        }).finally(done);
+    });
+
+    it(' .doUntil', function(done){
+      var call_order = [];
+      var count = 0;
+      async.doUntil(
+        function (cb) {
+          call_order.push(['iterator', count]);
+          count++;
+          cb();
+        },
+        function () {
+          call_order.push(['test', count]);
+          return (count == 5);
+        }).then(function() {
+          call_order.should.be.eql([
+            ['iterator', 0], ['test', 1],
+            ['iterator', 1], ['test', 2],
+            ['iterator', 2], ['test', 3],
+            ['iterator', 3], ['test', 4],
+            ['iterator', 4], ['test', 5]
+          ]);
+          count.should.be.equal(5);
+        }).finally(done);
+    });
+
     it(' .compose');
     it(' .applyEach');
     it(' .applyEachSeries');
@@ -888,9 +936,56 @@ describe('async', function(){
         }).finally(done);
     });
 
+    it(' .until', function(done){
+      var call_order = [];
 
-    it(' .until');
-    it(' .doUntil');
+      var count = 0;
+      async.until(
+        function () {
+          call_order.push(['test', count]);
+          return (count === 5);
+        },
+        function (cb) {
+          call_order.push(['iterator', count]);
+          count++;
+          cb();
+        }).then(function() {
+          call_order.should.be.eql([
+            ['test', 0],
+            ['iterator', 0], ['test', 1],
+            ['iterator', 1], ['test', 2],
+            ['iterator', 2], ['test', 3],
+            ['iterator', 3], ['test', 4],
+            ['iterator', 4], ['test', 5],
+          ]);
+          count.should.be.equal(5);
+        }).finally(done);
+    });
+
+    it(' .doUntil', function(done){
+      var call_order = [];
+      var count = 0;
+      async.doUntil(
+        function (cb) {
+          call_order.push(['iterator', count]);
+          count++;
+          cb();
+        },
+        function () {
+          call_order.push(['test', count]);
+          return (count == 5);
+        }).then(function() {
+          call_order.should.be.eql([
+            ['iterator', 0], ['test', 1],
+            ['iterator', 1], ['test', 2],
+            ['iterator', 2], ['test', 3],
+            ['iterator', 3], ['test', 4],
+            ['iterator', 4], ['test', 5]
+          ]);
+          count.should.be.equal(5);
+        }).finally(done);
+    });
+
     it(' .compose');
     it(' .applyEach');
     it(' .applyEachSeries');
