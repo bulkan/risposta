@@ -501,11 +501,65 @@ describe('async', function(){
         }).finally(done);
     });
 
-    it(' .compose');
-    it(' .applyEach');
-    it(' .applyEachSeries');
+    it(' .applyEach', function (done) {
+      var call_order = [];
+      var one = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('one');
+          cb(null, 1);
+        }, 3);
+      };
+      var two = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('two');
+          cb(null, 2);
+        }, 1);
+      };
+      var three = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('three');
+          cb(null, 3);
+        }, 5);
+      };
+      async.applyEach([one, two, three], 5).then(function() {
+        call_order.should.be.eql(['two', 'one', 'three']);
+      }).finally(done);
+    });
+
+    it(' .applyEachSeries', function (done) {
+      var call_order = [];
+      var one = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('one');
+          cb(null, 1);
+        }, 3);
+      };
+      var two = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('two');
+          cb(null, 2);
+        }, 1);
+      };
+      var three = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('three');
+          cb(null, 3);
+        }, 5);
+      };
+      async.applyEachSeries([one, two, three], 5).then(function() {
+        call_order.should.be.eql(['two', 'one', 'three']);
+      }).finally(done);
+    });
+
     it(' .times');
     it(' .timesSeries');
+    it(' .compose');
   });
 
   describe('implemented using bluebird', function(){
@@ -986,11 +1040,67 @@ describe('async', function(){
         }).finally(done);
     });
 
-    it(' .compose');
-    it(' .applyEach');
-    it(' .applyEachSeries');
+    it(' .applyEach', function (done) {
+      var call_order = [];
+      var one = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('one');
+          cb(null, 1);
+        }, 3);
+      };
+      var two = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('two');
+          cb(null, 2);
+        }, 1);
+      };
+      var three = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('three');
+          cb(null, 3);
+        }, 5);
+      };
+      async.applyEach([one, two, three], 5).then(function() {
+        call_order.should.be.eql(['two', 'one', 'three']);
+      }).finally(done);
+    });
+
+    it(' .applyEachSeries', function (done) {
+      var call_order = [];
+      var one = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('one');
+          cb(null, 1);
+        }, 3);
+      };
+      var two = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('two');
+          cb(null, 2);
+        }, 1);
+      };
+      var three = function(val, cb) {
+        val.should.be.equal(5);
+        setTimeout(function () {
+          call_order.push('three');
+          cb(null, 3);
+        }, 5);
+      };
+      async.applyEachSeries([one, two, three], 5).then(function() {
+        call_order.should.be.eql(['two', 'one', 'three']);
+      }).finally(done);
+    });
+
+
+
     it(' .times');
     it(' .timesSeries');
+    it(' .compose');
 
 
   });
