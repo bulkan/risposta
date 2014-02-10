@@ -584,7 +584,18 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .times');
+    it(' .times', function(done){
+      var args = [];
+      async.times(3, function(n, next) {
+        setTimeout(function(){
+          args.push(n);
+          next(null, n)
+        }, n);
+      }).then(function(results) {
+        results.should.be.eql([0,1,2]);
+      }).finally(done);
+    });
+
     it(' .timesSeries');
   });
 
@@ -1196,7 +1207,18 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .times');
+    it(' .times', function(done){
+      var args = [];
+      async.times(3, function(n, next) {
+        setTimeout(function(){
+          args.push(n);
+          next(null, n)
+        }, n);
+      }).then(function(results) {
+        results.should.be.eql([0,1,2]);
+      }).finally(done);
+    });
+
     it(' .timesSeries');
 
   });
