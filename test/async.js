@@ -596,7 +596,47 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .timesSeries');
+    it ('times 0', function(done){
+      var called = 0;
+      async.times(0, function(n, callback){
+        ++called;
+        callback();
+      }).then(function(err){
+        called.should.be.equal(0);
+        'should call callback'.should.be.ok;
+      }).finally(done);
+    });
+
+    it('times error', function(done){
+      async.times(3, function(n, callback){
+        callback('error');
+      }).catch(function(err){
+        err.should.be.equal('error');
+      }).finally(done);
+    });
+
+
+    it(' .timesSeries', function(done){
+      var call_order = [];
+      async.timesSeries(5, function(n, callback){
+        setTimeout(function(){
+          call_order.push(n);
+          callback(null, n);
+        }, 10 - n * 1);
+      }).then(function(results){
+        call_order.should.be.eql([0,1,2,3,4]);
+        results.should.be.eql([0,1,2,3,4]);
+      }).finally(done);
+    });
+
+
+    it(' .timesSeries error', function(done){
+      async.timesSeries(3, function(n, callback){
+        callback('error');
+      }).catch(function(err){
+        err.message.should.be.equal('error');
+      }).finally(done);
+    });
   });
 
   describe('implemented using bluebird', function(){
@@ -1219,7 +1259,50 @@ describe('async', function(){
       }).finally(done);
     });
 
-    it(' .timesSeries');
+    it ('times 0', function(done){
+      var called = 0;
+      async.times(0, function(n, callback){
+        ++called;
+        callback();
+      }).then(function(err){
+        called.should.be.equal(0);
+        'should call callback'.should.be.ok;
+      }).finally(done);
+    });
+
+    it('times error', function(done){
+      async.times(3, function(n, callback){
+        setTimeout(function(){
+          callback('error');
+        }, 1);
+      }).catch(function(err){
+        err.message.should.be.equal('error');
+      }).finally(done);
+    });
+
+    it(' .timesSeries', function(done){
+      var call_order = [];
+      async.timesSeries(5, function(n, callback){
+        setTimeout(function(){
+          call_order.push(n);
+          callback(null, n);
+        }, 10 - n * 1);
+      }).then(function(results){
+        call_order.should.be.eql([0,1,2,3,4]);
+        results.should.be.eql([0,1,2,3,4]);
+      }).finally(done);
+    });
+
+
+    it(' .timesSeries error', function(done){
+      async.timesSeries(3, function(n, callback){
+        setTimeout(function(){
+          callback('error');
+        }, 1);
+      }).catch(function(err){
+        err.message.should.be.equal('error');
+      }).finally(done);
+    });
 
   });
 });
