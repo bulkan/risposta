@@ -1,6 +1,6 @@
 {
   "name": "risposta",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "functions from async.js implemented using promises",
   "main": "index.js",
   "scripts": {
