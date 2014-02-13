@@ -8,9 +8,10 @@ and the new [faster](http://spion.github.io/posts/why-i-am-switching-to-promises
 Promise library [bluebird](https://github.com/petkaantonov/bluebird).
 
 The inital code for _risposta_ is based off this [gist](https://gist.github.com/wavded/6116786)
-by @wavdad though _risposta_ is feature complete with async.js. For example the 
+by @wavdad. _risposta_ is feature complete with async.js. For example the 
 implemenation of `async.series` & `async.parallel` by @wavdad does not support
-the ability to pass in a object containing task functions as properties.
+the ability to pass in a object containing task functions as properties. This meas that
+you can easily replace async with _risposta_.
 
 The tests for _risposta_ is actually the [nodeunit](https://github.com/caolan/async/blob/master/test/test-async.js)
 tests from async converted to Mocha and promisified.
