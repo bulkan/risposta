@@ -1,6 +1,6 @@
 {
   "name": "risposta",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "functions from async.js implemented using promises",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,10 @@
   "homepage": "https://github.com/bulkan/risposta",
   "dependencies": {
     "q": "~1.0.0",
+    "bluebird": "~1.0.1"
+  },
+  "devDependencies": {
     "chai": "~1.8.1",
     "mocha": "~1.17.1",
-    "bluebird": "~1.0.1"
   }
 }
